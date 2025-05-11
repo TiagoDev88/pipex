@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_putstr.c                                 :+:      :+:    :+:   */
+/*   ft_putnbr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 12:48:45 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/04/15 15:49:19 by tfilipe-         ###   ########.fr       */
+/*   Created: 2025/04/15 15:58:37 by tfilipe-          #+#    #+#             */
+/*   Updated: 2025/04/15 16:57:04 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 /**
- * @brief Writes a string to standard output.
+ * @brief Prints a signed integer to standard output.
  * 
- * @param str Pointer to the string to be printed.
+ * @param nbr The integer to be printed.
  * @return int The number of characters printed.
  */
-int	ft_printf_putstr(char *str)
+int	ft_putnbr(int nbr)
 {
 	int	count;
 
-	if (!str)
-		str = "(null)";
 	count = 0;
-	while (str[count])
+	if (nbr == -2147483648)
+		count = count + ft_printf_putstr("-2147483648");
+	else
 	{
-		ft_printf_putchar(str[count]);
-		count++;
+		if (nbr < 0)
+		{
+			count = count + ft_printf_putchar('-');
+			nbr = -nbr;
+		}
+		if (nbr > 9)
+			count = count + ft_putnbr(nbr / 10);
+		count = count + ft_printf_putchar((nbr % 10) + 48);
 	}
 	return (count);
 }

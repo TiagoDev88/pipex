@@ -6,11 +6,11 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:46:19 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/04/17 11:30:01 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/04/15 17:26:10 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 /**
  * @brief Handles format specifiers and calls the appropriate function
  *  to print the value.
@@ -37,9 +37,9 @@ int	ft_check_format(char str, va_list args)
 	else if (str == 'u')
 		i = i + ft_putnbr_unsigned(va_arg(args, unsigned int));
 	else if (str == 'x')
-		i = i + ft_putnbr_base(va_arg(args, unsigned int), "0123456789abcdef");
+		i = i + ft_putnbr_base(va_arg(args, unsigned long), "0123456789abcdef");
 	else if (str == 'X')
-		i = i + ft_putnbr_base(va_arg(args, unsigned int), "0123456789ABCDEF");
+		i = i + ft_putnbr_base(va_arg(args, unsigned long), "0123456789ABCDEF");
 	return (i);
 }
 
@@ -77,7 +77,6 @@ int	ft_printf(const char *str, ...)
 
 // #include <stdio.h>
 // #include "ft_printf.h"
-// #include <limits.h>
 
 // int	main(void)
 // {
@@ -146,10 +145,6 @@ int	ft_printf(const char *str, ...)
 
 // 	ret_ft = ft_printf("ft_printf: [Hex upper: %X]\n", 255);
 // 	ret_std = printf("printf   : [Hex upper: %X]\n", 255);
-// 	printf("Return ft_printf: %d | printf: %d\n\n", ret_ft, ret_std);
-
-// 	ret_ft = ft_printf("ft_printf: [ULONG_MAX: %X]\n", ULONG_MAX);
-// 	ret_std = printf("printf   : [ULONG_MAX: %X]\n", ULONG_MAX);
 // 	printf("Return ft_printf: %d | printf: %d\n\n", ret_ft, ret_std);
 
 // 	printf("==== POINTER TESTS ====\n");

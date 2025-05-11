@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_unsigned.c                               :+:      :+:    :+:   */
+/*   ft_printf_putchar.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 16:53:42 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/04/15 17:05:17 by tfilipe-         ###   ########.fr       */
+/*   Created: 2025/04/15 13:24:17 by tfilipe-          #+#    #+#             */
+/*   Updated: 2025/04/15 15:41:06 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 /**
- * @brief Prints an unsigned integer to standard output.
+ * @brief Writes a single character to standard output.
  * 
- * @param nbr The unsigned integer to be printed.
- * @return int The number of characters printed.
+ * @param c The character to be printed.
+ * @return int Always returns 1 (the number of characters printed).
  */
-int	ft_putnbr_unsigned(unsigned int nbr)
+int	ft_printf_putchar(char c)
 {
 	int	count;
 
-	count = 0;
-	if (nbr > 9)
-		count = count + ft_putnbr_unsigned(nbr / 10);
-	count = count + ft_printf_putchar((nbr % 10) + 48);
+	count = 1;
+	write(1, &c, 1);
 	return (count);
 }

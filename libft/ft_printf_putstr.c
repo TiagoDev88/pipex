@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putptr.c                                        :+:      :+:    :+:   */
+/*   ft_printf_putstr.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/15 22:22:17 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/04/15 22:22:17 by tfilipe-         ###   ########.fr       */
+/*   Created: 2025/04/15 12:48:45 by tfilipe-          #+#    #+#             */
+/*   Updated: 2025/04/15 15:49:19 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 /**
- * @brief Prints a memory address (pointer) in hexadecimal format.
+ * @brief Writes a string to standard output.
  * 
- * @param ptr Pointer to be printed.
+ * @param str Pointer to the string to be printed.
  * @return int The number of characters printed.
  */
-int	ft_putptr(void *ptr)
+int	ft_printf_putstr(char *str)
 {
-	unsigned long	addr;
-	int				count;
+	int	count;
 
-	if (ptr == NULL)
-		return (ft_printf_putstr("(nil)"));
+	if (!str)
+		str = "(null)";
 	count = 0;
-	addr = (unsigned long)ptr;
-	count = count + ft_printf_putstr("0x");
-	count = count + ft_putnbr_base(addr, "0123456789abcdef");
+	while (str[count])
+	{
+		ft_printf_putchar(str[count]);
+		count++;
+	}
 	return (count);
 }

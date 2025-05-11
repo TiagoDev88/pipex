@@ -13,8 +13,17 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+# ifndef MAX_FD
+#  define MAX_FD 1024
+# endif
+
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 /* ************************************************************************** */
 /*                               Lists Manipulation                           */
@@ -99,5 +108,30 @@ void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 int		ft_atoi(const char *str);
+
+/* ************************************************************************** */
+/*                               FT_PRINTF Functions                          */
+/* ************************************************************************** */
+
+int	ft_printf(const char *str, ...);
+int	ft_printf_putstr(char *str);
+int	ft_printf_putchar(char c);
+int	ft_putnbr_base(unsigned long nbr, char *base);
+int	ft_putnbr(int nbr);
+int	ft_putnbr_unsigned(unsigned int nbr);
+int	ft_check_format(char str, va_list args);
+int	ft_putptr(void *ptr);
+
+/* ************************************************************************** */
+/*                               Get Next Line Functions                      */
+/* ************************************************************************** */
+
+int		gnl_strlen(char *s);
+int		has_newline(char *stash);
+char	*get_next_line(int fd);
+char	*gnl_strjoin(char *s1, char *s2);
+char	*extract_line(char *stash);
+char	*update_stash(char *stash);
+char	*read_into_stash(int fd, char *stash, char *buffer);
 
 #endif
