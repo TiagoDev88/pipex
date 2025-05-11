@@ -6,7 +6,7 @@
 #    By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/14 17:39:25 by tfilipe-          #+#    #+#              #
-#    Updated: 2025/05/11 18:46:32 by tfilipe-         ###   ########.fr        #
+#    Updated: 2025/05/11 19:42:28 by tfilipe-         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -19,7 +19,7 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 LIBFT_INC = $(LIBFT_DIR) 
 
-SRCS = pipex.c
+SRCS = pipex.c utils.c command_utils.c get_cmd_path.c
 OBJS = $(SRCS:.c=.o)
 
 RM = rm -f
