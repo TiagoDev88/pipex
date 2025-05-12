@@ -54,8 +54,12 @@ int	main(int argc, char **argv, char **envp)
 		return (1);
 	if (pipe(fd_pipe) == -1)
 		return (error_msg("Pipe error"));
-	pid1 = fork_process(argv[2], envp, fd_in, fd_pipe[1], fd_pipe);
-	pid2 = fork_process(argv[3], envp, fd_pipe[0], fd_out, fd_pipe);
+	//ft_printf("%s\n", argv[2]);
+	//argv[2] = ft_strtrim(argv[2], "\"");
+	//ft_printf("%s\n", argv[2]);
+	//ft_printf("%s\n", argv[3]);
+	pid1 = child1(argv[2], envp, fd_in, fd_pipe[1], fd_pipe);
+	pid2 = child2(argv[3], envp, fd_pipe[0], fd_out, fd_pipe);
 	close_fds(fd_pipe, fd_in, fd_out);
 	waitpid(pid1, NULL, 0);
 	waitpid(pid2, NULL, 0);
