@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 19:07:23 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/05/15 14:29:39 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:13:39 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	close_fds(int *pipefd, int fd1, int fd2)
 		close(fd2);
 }
 
-pid_t	child1(char *cmd, char **envp, int fd_in, int fd_out, int *pipefd)
+pid_t	child1(char *cmd, char **envp, int fd_file, int *pipefd)
 {
 	pid_t	pid;
 
@@ -40,16 +40,18 @@ pid_t	child1(char *cmd, char **envp, int fd_in, int fd_out, int *pipefd)
 	}
 	if (pid == 0)
 	{
-		dup2(fd_in, STDIN_FILENO);
-		dup2(fd_out, STDOUT_FILENO);
-		close(fd_in);
+		if (fd_file == -1)
+			exit(1);
+		dup2(fd_file, STDIN_FILENO);
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(fd_file);
 		close(pipefd[0]);
 		execute_command(cmd, envp);
 	}
 	return (pid);
 }
 
-pid_t	child2(char *cmd, char **envp, int fd_in, int fd_out, int *pipefd)
+pid_t	child2(char *cmd, char **envp, int fd_file, int *pipefd)
 {
 	pid_t	pid;
 
@@ -61,10 +63,10 @@ pid_t	child2(char *cmd, char **envp, int fd_in, int fd_out, int *pipefd)
 	}
 	if (pid == 0)
 	{
-		dup2(fd_in, STDIN_FILENO);
-		dup2(fd_out, STDOUT_FILENO);
+		dup2(pipefd[0], STDIN_FILENO);
+		dup2(fd_file, STDOUT_FILENO);
 		close(pipefd[1]);
-		close(fd_out);
+		close(fd_file);
 		execute_command(cmd, envp);
 	}
 	return (pid);
