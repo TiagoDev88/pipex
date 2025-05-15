@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   get_cmd_path.c                                     :+:      :+:    :+:   */
@@ -6,13 +6,13 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 19:22:48 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/05/11 19:24:10 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/05/15 14:25:18 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "pipex.h"
 
-static char	*join_path(char *dir, char *cmd)
+static char	*concatenate_path(char *dir, char *cmd)
 {
 	char	*tmp;
 	char	*full;
@@ -22,59 +22,69 @@ static char	*join_path(char *dir, char *cmd)
 		return (NULL);
 	full = ft_strjoin(tmp, cmd);
 	free(tmp);
+	if (!full)
+		return (NULL);
 	return (full);
 }
 
-static char	**get_paths_from_env(char **envp)
+void	free_split(char **arr)
 {
-	while (*envp && ft_strncmp(*envp, "PATH=", 5) != 0)
-		envp++;
-	if (!*envp)
-		return (NULL);
-	return (ft_split(*envp + 5, ':'));
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return ;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
 
 static char	*find_cmd_in_paths(char **paths, char *cmd)
 {
 	char	*full_path;
+	char	*result;
 	int		i;
 
+	result = NULL;
 	i = 0;
-	while (paths[i])
+	while (paths[i] && result == NULL)
 	{
-		full_path = join_path(paths[i], cmd);
+		full_path = concatenate_path(paths[i], cmd);
 		if (full_path && access(full_path, X_OK) == 0)
-		{
-			free_split(paths);
-			return (full_path);
-		}
-		free(full_path);
+			result = full_path;
+		else
+			free(full_path);
 		i++;
 	}
 	free_split(paths);
-	return (NULL);
+	return (result);
 }
 
 char	*get_cmd_path(char *cmd, char **envp)
 {
 	char	**paths;
+	char	*result;
+	int		i;
 
-	if (access(cmd, X_OK) == 0)
-		return (ft_strdup(cmd));
-	paths = get_paths_from_env(envp);
-	if (!paths)
+	result = NULL;
+	if (!cmd || !*cmd)
 		return (NULL);
-	return (find_cmd_in_paths(paths, cmd));
+	if (ft_strchr(cmd, '/') && access(cmd, X_OK) == 0)
+		result = ft_strdup(cmd);
+	else
+	{
+		i = 0;
+		while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
+			i++;
+		if (envp[i])
+		{
+			paths = ft_split(envp[i] + 5, ':');
+			if (paths)
+				result = find_cmd_in_paths(paths, cmd);
+		}
+	}
+	return (result);
 }
-
-void	free_split(char **arr)
-{
-	int	i = 0;
-
-	if (!arr)
-		return;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
-
