@@ -22,25 +22,25 @@ void	execute_command(char *cmd, char **envp)
 	{
 		perror("No command provided");
 		free_split(args);
-		exit(127);
+		exit(CMD_NOT_FOUND);
 	}
 	path = get_cmd_path(args[0], envp);
 	if (!path)
 	{
 		perror("Command not found");
 		free_split(args);
-		exit(127);
+		exit(CMD_NOT_FOUND);
 	}
 	if (access(path, X_OK) != 0)
 	{
 		perror("Path");
 		free(path);
 		free_split(args);
-		exit(126);
+		exit(CMD_NO_PERMISSION);
 	}
 	execve(path, args, envp);
 	perror("Execve failed");
 	free(path);
 	free_split(args);
-	exit(1);
+	exit(EXIT_FAILURE);
 }

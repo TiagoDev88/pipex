@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **envp)
 	fd_in = open_infile(argv[1]);
 	fd_out = open_outfile(argv[4]);
 	if (fd_out == -1)
-		return (1);
+		return (ERR_OUTFILE);
 	if (create_pipe(fd_pipe) == -1)
 		return (error_msg("Pipe error"));
 	pid1 = child1(argv[2], envp, fd_in, fd_pipe);
@@ -66,5 +66,5 @@ int	main(int argc, char **argv, char **envp)
 	waitpid(pid2, &fd_out, 0);
 	if (WIFEXITED(fd_out))
 		return (WEXITSTATUS(fd_out));
-	return (0);
+	return (EXIT_SUCCESS);
 }

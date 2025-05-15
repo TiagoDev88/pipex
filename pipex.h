@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:52:50 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/05/15 14:49:03 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/05/15 15:46:19 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <sys/wait.h>
 # include <errno.h>
 # include "libft/libft.h"
+
+# define EXIT_SUCCESS      0
+# define EXIT_FAILURE      1
+# define CMD_NOT_FOUND     127
+# define CMD_NO_PERMISSION 126
+# define ERR_OUTFILE       1
 
 /* ******************************* MAIN ************************************* */
 int		create_pipe(int fd_pipe[2]);
