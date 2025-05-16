@@ -6,7 +6,7 @@
 /*   By: tfilipe- <tfilipe-@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/01 12:52:50 by tfilipe-          #+#    #+#             */
-/*   Updated: 2025/05/15 15:46:19 by tfilipe-         ###   ########.fr       */
+/*   Updated: 2025/05/16 15:03:22 by tfilipe-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 int		create_pipe(int fd_pipe[2]);
 int		open_infile(char *infile);
 int		open_outfile(char *outfile);
+int		exec_every(char **argv, char **envp);
 
 /* ******************************* UTILS ************************************ */
 int		error_msg(char *msg);
