@@ -53,7 +53,8 @@ git clone https://github.com/TiagoDev88/pipex.git
 cd pipex
 ```
 
-** 2. Compile the project **
+**2. Compile the project**
+
 ```bash
 make
 ```
@@ -98,9 +99,9 @@ cmd1 << LIMITER | cmd2 >> outfile
 ## **📄 Files**
 pipex.c – main logic
 
-utils.c – helper functions
+command.c – helper functions
 
-parsing.c – handle command/path parsing
+get_cmd_path.c.c – handle command/path parsing
 
 pipex.h – header with prototypes and includes
 
