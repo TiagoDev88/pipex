@@ -1,6 +1,8 @@
-<h1 align="center">
-	🔗 pipex
-</h1>
+<h2 align="center">
+
+[![PIPEX](https://github.com/TiagoDev88/42-project-badges/blob/main/badges/pipexn.png)](https://github.com/TiagoDev88/pipex) 
+
+</h2>
 
 <p align="center">
 	<b><i>Recreating shell pipelines in C</i></b><br>
